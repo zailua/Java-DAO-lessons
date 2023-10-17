@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import com.petshop.model.Cliente;
 import com.petshop.model.Pet;
+import com.petshop.utils.Colors;
 
 public class PetDAO {
 
@@ -15,14 +16,12 @@ public class PetDAO {
 	private final Connection connection;
 
 	public PetDAO(Connection connection) {
-
 		this.connection = connection;
-
 	}
 
 	// CREATE
 	public void createPet(Pet pet) {
-		sql = "INSERT INTO Pet (nomePet,portePet,especiePet,racaPet,idadePet,idCliente) VALUES (?,?,?,?,?,?)";
+		sql = "INSERT INTO Pet (nomePet, portePet, especiePet, racaPet, idadePet, idCliente) VALUES (?,?,?,?,?,?)";
 		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
 			stmt.setString(1, pet.getNomePet());
 			stmt.setString(2, pet.getPortePet());
@@ -32,9 +31,9 @@ public class PetDAO {
 			stmt.setInt(6, pet.getCliente().getIdCliente());
 
 			stmt.executeUpdate();
-			System.out.println("Pet criado com sucesso! " + pet.toString());
+			System.out.println("Pet criado com sucesso!" + pet.toString());
 		} catch (SQLException e) {
-			System.out.printf(e.getMessage());
+			System.out.println(e.getMessage());
 		}
 
 	}
@@ -45,28 +44,36 @@ public class PetDAO {
 		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
 			ResultSet r = stmt.executeQuery();
 			while (r.next()) {
+				// Pet
 				Pet pet = new Pet();
-				Cliente cliente = new Cliente();
+				pet.setIdPet(r.getInt("idPet"));
 				pet.setNomePet(r.getString("nomePet"));
 				pet.setPortePet(r.getString("portePet"));
 				pet.setEspeciePet(r.getString("especiePet"));
 				pet.setRacaPet(r.getString("racaPet"));
 				pet.setIdadePet(r.getInt("idadePet"));
+
+				// Cliente do Pet
+				Cliente cliente = new Cliente();
 				cliente.setIdCliente(r.getInt("idCliente"));
 				cliente.setNomeCliente(r.getString("nomeCliente"));
+				cliente.setCpfCliente(r.getString("cpfCliente"));
+				cliente.setEnderecoCliente(r.getString("enderecoCliente"));
+				cliente.setTelefone(r.getString("telefone"));
 
-				System.out
-						.println("Nome do Pet: " + pet.getNomePet() + "\nNome do Cliente: " + cliente.getNomeCliente());
+				System.out.println("ID do Pet: " + pet.getIdPet() + "\nNome do Pet: "+ pet.getNomePet() + "\nID do Cliente: "
+						+ cliente.getIdCliente() + "\nNome Cliente: " + cliente.getNomeCliente());
 
 			}
+
 		} catch (SQLException e) {
-			System.out.printf(e.getMessage());
+			System.out.println(Colors.RED.get() + "[LOG] Nao foi possivel acessar as informacoes." + Colors.RESET.get()
+					+ "Mensagem: " + e.getMessage());
 		}
 	}
 
 	// UPDATE
 	public void updatePet(Pet pet) {
-
 		sql = "UPDATE pet SET nomePet = ?, portePet = ?, especiePet = ?, racaPet = ?, idadePet = ?, idCliente = ? WHERE idPet = ?";
 		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
 			stmt.setString(1, pet.getNomePet());
@@ -78,21 +85,23 @@ public class PetDAO {
 			stmt.setInt(7, pet.getIdPet());
 
 			stmt.executeUpdate();
+			System.out.println(Colors.GREEN.get() + "Pet atualizado com sucesso\n" + Colors.RESET.get() + "Nome: "
+					+ pet.getNomePet() + "\nPorte do Pet: " + pet.getPortePet());
+
 		} catch (SQLException e) {
-			System.out.printf(e.getMessage());
-			System.out.println("Nao foi possivel atualizar o Pet");
+			System.out.println(Colors.RED.get() + "[LOG] Nao foi possivel atualizar o Pet." + Colors.RESET.get()
+					+ "Mensagem: " + e.getMessage());
 		}
 	}
 
 	// DELETE
 	public void deletePet(int id) {
 		sql = "DELETE FROM pet WHERE idPet = ?";
-		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+		try (PreparedStatement stmt = connection.prepareStatement(sql)){
 			stmt.setInt(1, id);
 			stmt.executeUpdate();
 		} catch (SQLException e) {
-			System.out.printf(e.getMessage());
+			System.out.println(e.getMessage());
 		}
 	}
-
 }

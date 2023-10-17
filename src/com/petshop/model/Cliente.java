@@ -13,20 +13,17 @@ public class Cliente {
 	private String telefone;
 	
 	
-	
-	
-	
-	
 
 	public Cliente() {
 		super();
+
 	}
 
-	public Cliente(String nomeCliente, String cpfCliente, String endereco, String telefone) {
+	public Cliente(String nomeCliente, String cpfCliente, String enderecoCliente, String telefone) {
 		super();
 		this.nomeCliente = nomeCliente;
 		this.cpfCliente = cpfCliente;
-		this.enderecoCliente = endereco;
+		this.enderecoCliente = enderecoCliente;
 		this.telefone = telefone;
 	}
 
@@ -58,8 +55,8 @@ public class Cliente {
 		return enderecoCliente;
 	}
 
-	public void setEnderecoCliente(String endereco) {
-		this.enderecoCliente = endereco;
+	public void setEnderecoCliente(String enderecoCliente) {
+		this.enderecoCliente = enderecoCliente;
 	}
 
 	public String getTelefone() {
@@ -72,7 +69,7 @@ public class Cliente {
 
 	@Override
 	public String toString() {
-		return "nomeCliente=" + nomeCliente + ", cpfCliente=" + cpfCliente
+		return "Cliente [idCliente=" + idCliente + ", nomeCliente=" + nomeCliente + ", cpfCliente=" + cpfCliente
 				+ ", enderecoCliente=" + enderecoCliente + ", telefone=" + telefone + "]";
 	}
 

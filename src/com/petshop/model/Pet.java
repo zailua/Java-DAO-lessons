@@ -6,17 +6,8 @@ public class Pet {
 
 	private String nomePet;
 
-	public int getIdPet() {
-		return idPet;
-	}
-
-	public void setIdPet(int idPet) {
-		this.idPet = idPet;
-	}
-
 	public enum PortePet {
 		PEQUENO, MEDIO, GRANDE
-
 	}
 
 	private PortePet portePet;
@@ -29,18 +20,12 @@ public class Pet {
 
 	private Cliente cliente;
 
-	public Pet() {
-		super();
+	public int getIdPet() {
+		return idPet;
 	}
 
-	public Pet(String nomePet, PortePet portePet, String especiePet, String racaPet, int idadePet, Cliente cliente) {
-		super();
-		this.nomePet = nomePet;
-		this.portePet = portePet;
-		this.especiePet = especiePet;
-		this.racaPet = racaPet;
-		this.idadePet = idadePet;
-		this.cliente = cliente;
+	public void setIdPet(int idPet) {
+		this.idPet = idPet;
 	}
 
 	public String getNomePet() {
@@ -63,7 +48,7 @@ public class Pet {
 		} else if ("GRANDE".equalsIgnoreCase(portePet)) {
 			this.portePet = PortePet.GRANDE;
 		} else {
-			throw new IllegalArgumentException("Valor de porte do pet inválido: " + portePet);
+			System.out.println("Valor invalido: " + portePet);
 		}
 	}
 
@@ -97,6 +82,12 @@ public class Pet {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	@Override
+	public String toString() {
+		return "Pet [idPet=" + idPet + ", nomePet=" + nomePet + ", portePet=" + portePet + ", especiePet=" + especiePet
+				+ ", racaPet=" + racaPet + ", idadePet=" + idadePet + ", cliente=" + cliente + "]";
 	}
 
 }

@@ -2,34 +2,17 @@ package com.petshop.model;
 
 import java.time.LocalDateTime;
 
-
-
 public class Veterinario {
 
 	private int idVeterinario;
 
 	private String nomeVeterinario;
 
-	private String crmv;
+	private String CRMV;
 
 	private String especialidade;
 
 	private LocalDateTime horariosDisponiveis;
-	
-	
-
-	public Veterinario() {
-		super();
-		
-	}
-
-	public Veterinario(String nomeVeterinario, String crmv, String especialidade, LocalDateTime horariosDisponiveis) {
-		super();
-		this.nomeVeterinario = nomeVeterinario;
-		this.crmv = crmv;
-		this.especialidade = especialidade;
-		this.horariosDisponiveis = horariosDisponiveis;
-	}
 
 	public int getIdVeterinario() {
 		return idVeterinario;
@@ -47,12 +30,12 @@ public class Veterinario {
 		this.nomeVeterinario = nomeVeterinario;
 	}
 
-	public String getCrmv() {
-		return crmv;
+	public String getCRMV() {
+		return CRMV;
 	}
 
-	public void setCrmv(String crmv) {
-		this.crmv = crmv;
+	public void setCRMV(String cRMV) {
+		CRMV = cRMV;
 	}
 
 	public String getEspecialidade() {

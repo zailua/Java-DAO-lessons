@@ -9,14 +9,16 @@ import com.petshop.model.Cliente;
 import com.petshop.utils.Colors;
 
 public class ClienteIO {
+
 	static Connection connection = DatabaseConnection.createConnection();
 	static ClienteDAO clienteDAO = new ClienteDAO(connection);
 
-	public static int MenuCliente(Scanner scanner) {
+	public static int SubMenuCliente(Scanner scanner) {
 		int option = Integer.MAX_VALUE;
 		do {
-			System.out.println("Menu Cliente\n" + "1 - Cadastrar\n" + "2 - Listar\n" + "3 - Atualizar\n"
-					+ "4 - Deletar\n" + "0 - Sair");
+			System.out.println("MENU CLIENTE\n" + "1 - cadastrar\n" + "2 - Listar\n" + "3 - Atualizar\n" + "4 - Deletar"
+					+ "\n0 - Sair");
+
 			option = scanner.nextInt();
 			switch (option) {
 			case 1:
@@ -25,19 +27,17 @@ public class ClienteIO {
 				System.out.println("Nome Completo: ");
 				cliente.setNomeCliente(scanner.nextLine());
 				System.out.println("CPF: ");
-				cliente.setCpfCliente(scanner.next());
+				cliente.setCpfCliente(scanner.nextLine().trim());
 				System.out.println("Endereco: ");
-				cliente.setEnderecoCliente(scanner.next());
+				cliente.setEnderecoCliente(scanner.nextLine());
 				System.out.println("Telefone: ");
-				cliente.setTelefone(scanner.next());
+				cliente.setTelefone(scanner.next().trim());
 
 				clienteDAO.createClient(cliente);
-
 				break;
 			case 2:
 				clienteDAO.readAllClients();
 				break;
-
 			case 3:
 				Cliente clienteAtualizado = new Cliente();
 				System.out.println("Digite o ID do cliente a ser atualizado: ");
@@ -46,25 +46,28 @@ public class ClienteIO {
 				System.out.println("Nome Completo: ");
 				clienteAtualizado.setNomeCliente(scanner.nextLine());
 				System.out.println("CPF: ");
-				clienteAtualizado.setCpfCliente(scanner.next());
+				clienteAtualizado.setCpfCliente(scanner.nextLine().trim());
 				System.out.println("Endereco: ");
-				clienteAtualizado.setEnderecoCliente(scanner.next());
+				clienteAtualizado.setEnderecoCliente(scanner.nextLine());
 				System.out.println("Telefone: ");
-				clienteAtualizado.setTelefone(scanner.next());
+				clienteAtualizado.setTelefone(scanner.next().trim());
 
-				clienteDAO.updateCliente(clienteAtualizado);
+				clienteDAO.updateClient(clienteAtualizado);
 				break;
 			case 4:
-				System.out.println(
-						"Digite o ID do Cliente que deseja " + Colors.RED.get() + "DELETAR" + Colors.RESET.get());
+				System.out
+						.println("Digite o ID do Cliente a ser " + Colors.RED.get() + "DELETADO" + Colors.RESET.get());
 				int idCliente = scanner.nextInt();
 				clienteDAO.deleteClient(idCliente);
-
+				
+				break;
 			default:
+				System.out.println("Digite uma opcao valida");
+
 			}
 
 		} while (option != 0);
-
+		
 		return option;
 	}
 

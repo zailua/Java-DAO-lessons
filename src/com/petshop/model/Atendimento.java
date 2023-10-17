@@ -2,7 +2,6 @@ package com.petshop.model;
 
 import java.time.LocalDateTime;
 
-
 public class Atendimento {
 
 	private int idAtendimento;
@@ -64,6 +63,5 @@ public class Atendimento {
 	public void setVeterinario(Veterinario veterinario) {
 		this.veterinario = veterinario;
 	}
-
 
 }
